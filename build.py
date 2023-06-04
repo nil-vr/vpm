@@ -1,10 +1,12 @@
 import json
+import re
 import subprocess
 from urllib.parse import urljoin
 
 import pygit2
 
 REPOS = [("https://github.com/nil-vr/nil.qr/", "nil.qr")]
+VERSION_TAG = re.compile(r"refs/tags/(\d+\.\d+\.\d+)")
 
 packages = {}
 for repo_info in REPOS:
@@ -20,9 +22,12 @@ for repo_info in REPOS:
 
     versions = []
     for ref in repo.listall_reference_objects():
+        version_match = VERSION_TAG.fullmatch(ref)
+        if version_match is None:
+            continue
         commit = ref.peel(pygit2.GIT_OBJ_COMMIT)
         blob = commit.tree / "Packages" / name / "package.json"
-        versions.append((ref.name, blob))
+        versions.append((version_match[1], blob))
 
     args = ["git", "fetch", "origin"]
     args.extend((str(v[1].id) for v in versions))
@@ -36,7 +41,7 @@ for repo_info in REPOS:
         version_data["url"] = urljoin(
             remote, f"releases/download/{version}/{name}-{version}.zip"
         )
-        package_versions[name] = version_data
+        package_versions[version] = version_data
 
     packages[name] = {
         "versions": package_versions,
