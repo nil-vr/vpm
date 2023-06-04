@@ -29,6 +29,7 @@ jobs:
           pip install pygit2~=1.12.1
           mkdir out
           python build.py
+          copy install.html out
           
       - name: Setup Pages
         uses: actions/configure-pages@v3

@@ -1,1 +1,5 @@
-This repository assembles a VPM package index. You can install it into VCC by clicking this link [https://nil-vr.github.io/vpm/index.json](vcc://vpm/addRepo?url=https://nil-vr.github.io/vpm/index.json) or by pasting into the packages tab of the VCC settings.
+This repository assembles a VPM package index. You can install it into VCC by clicking this link [https://nil-vr.github.io/vpm/install.html](https://nil-vr.github.io/vpm/install.html).
+
+# Contents
+
+- [nil.qr](https://github.com/nil-vr/nil.qr/) QR code generator for worlds
