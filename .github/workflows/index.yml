@@ -1,3 +1,5 @@
+name: Index
+
 on:
   workflow_dispatch:
 
@@ -31,7 +33,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
         with:
-          enablement: "True"
+          enablement: "true"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
