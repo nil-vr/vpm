@@ -1,0 +1,43 @@
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: |
+          python3 -m venv env
+          . ./env/bin/activate
+          pip install -u pip
+          pip install pygit2~=1.12.1
+          mkdir out
+          python build.py
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+        with:
+          enablement: "True"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
