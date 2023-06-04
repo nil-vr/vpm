@@ -22,7 +22,7 @@ for repo_info in REPOS:
 
     versions = []
     for ref in repo.listall_reference_objects():
-        version_match = VERSION_TAG.fullmatch(ref)
+        version_match = VERSION_TAG.fullmatch(ref.name)
         if version_match is None:
             continue
         commit = ref.peel(pygit2.GIT_OBJ_COMMIT)
