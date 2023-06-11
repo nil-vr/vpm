@@ -5,7 +5,10 @@ from urllib.parse import urljoin
 
 import pygit2
 
-REPOS = [("https://github.com/nil-vr/nil.qr/", "nil.qr")]
+REPOS = [
+    ("https://github.com/nil-vr/nil.qr/", "nil.qr"),
+    ("https://github.com/nil-vr/WeeklyCalendar/", "nil.weekly-calendar"),
+]
 VERSION_TAG = re.compile(r"refs/tags/(\d+\.\d+\.\d+)")
 
 packages = {}
